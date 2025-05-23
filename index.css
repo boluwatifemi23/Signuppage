@@ -113,3 +113,9 @@ button:active:before {
   background: pink;
   transition: background 0s;
 }
+
+@media screen and (max-width:771px) {
+  .div2{
+    width: 70%;
+  }
+}

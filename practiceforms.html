@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="practiceforms.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="div1">
+        <div class="div2">
+            <h1>SIGN UP</h1>
+            <p style="display: none;" id="warning">Please input all fields!</p>
+            <input type="text" placeholder="Fullname" id="fullname">
+            <input type="email" placeholder="Email" id="email">
+
+            <select id="course">
+                <option value="">Select a Course</option>
+                <option>Computer Science</option>
+                <option>Nursing</option>
+                <option>Engineering</option>
+                <option>Business Administration</option>
+                <option>Law</option>
+                <option>Psychology</option>
+                <option>Microbiology</option>
+                <option>Anaesthesia Technician</option>
+                <option>Software Engineering</option>
+            </select>
+
+            <input type="password" placeholder="Password" id="password">
+            <p style="display: none;" id="password-warning">Password is case sensitive!</p>
+
+            <button onclick="submit()">Submit</button>
+        </div>
+        <div id="submitted" class="submittedtoo">
+            <p id="summary"></p>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function submit() {
+            let fullname = document.getElementById('fullname').value
+            let nameparts = fullname.split(' ').filter(part => part.length > 1)
+            let email = document.getElementById('email').value
+            let course = document.getElementById('course').value
+            let password = document.getElementById('password').value
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+
+
+            let valid = true
+
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('password-warning').style.display = 'none';
+
+            if (nameparts.length < 2 || !emailPattern.test(email) || course == '' || !passwordPattern.test(password)) {
+                valid = false
+                document.getElementById('warning').innerText = 'Please fill in all fields correctly!'
+                document.getElementById('warning').style.display = 'block'
+                document.getElementById('warning').style.color = 'red'
+                document.getElementById('warning').style.fontSize = '15px'
+
+                if (!passwordPattern.test(password)) {
+                    document.getElementById('password-warning').innerText =
+                        'Password must be at least 6 characters and include uppercase, lowercase, and a number!'
+                    document.getElementById('password-warning').style.display = 'block'
+                    document.getElementById('password-warning').style.color = 'red'
+                    document.getElementById('password-warning').style.fontSize = '13px'
+
+                }
+            }
+
+            if (valid) {
+                console.log(fullname);
+                console.log(email);
+                console.log(course);
+                console.log(password);
+
+                document.getElementById('fullname').value = ''
+                document.getElementById('email').value = ''
+                document.getElementById('course').value = ''
+                document.getElementById('password').value = ''
+
+                alert(`Thank you, ${fullname}! Your form was submitted successfully!`)
+
+                let summarytext = `Hello, ${fullname}, you have successfully registered with the following email; ${email} and you have Successfully chosen ${course} as your choice of study. Your password was logged in successfully`
+
+                document.getElementById('summary').innerText = summarytext;
+                document.getElementById('submitted').style.display = 'block'
+
+
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>
